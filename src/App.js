@@ -23,8 +23,14 @@ const App = () => {
         createUserDocumentFromAuth(user);
       }
       //immediately invoked function to pick only serializable values from user object
+      //console.log('userrrrrrrrrrrrrrrrrrrrr', user);
       const pickedUser =
-        user && (({ accessToken, email }) => ({ accessToken, email }))(user);
+        user &&
+        (({ accessToken, email, displayName }) => ({
+          accessToken,
+          email,
+          displayName,
+        }))(user);
       console.log('reduxToolkit', setCurrentUser(pickedUser));
       dispatch(setCurrentUser(pickedUser));
     });
