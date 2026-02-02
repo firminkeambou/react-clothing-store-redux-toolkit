@@ -6,7 +6,15 @@ import {
   DirectoryItemContainer,
 } from './directory-item.styles';
 
-const DirectoryItem = ({ category }) => {
+export type CategoryDb = {
+  id: number;
+  title: string;
+  imageUrl: string;
+  route: string;
+};
+type DirectoryItemProps = { key: number; category: CategoryDb };
+
+const DirectoryItem = ({ category }: DirectoryItemProps) => {
   const { imageUrl, title, route } = category;
   const navigate = useNavigate();
 

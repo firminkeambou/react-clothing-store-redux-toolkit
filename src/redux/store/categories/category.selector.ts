@@ -1,7 +1,8 @@
 //this importation helps for memoization
 import { createSelector } from 'reselect';
-
-const selectCategoryReducer = (state) => state.categories;
+import { RootState } from '../store';
+import { CategoryMap } from '../../../utils/firebase/firebase.utils.types';
+const selectCategoryReducer = (state: RootState) => state.categories;
 
 export const selectCategories = createSelector(
   [selectCategoryReducer],
@@ -11,11 +12,12 @@ export const selectCategories = createSelector(
 export const selectCategoriesMap = createSelector(
   [selectCategories],
   (categories) =>
-    categories.reduce((acc, category) => {
+    categories.reduce((acc: CategoryMap, category) => {
       const { title, items } = category;
       acc[title.toLowerCase()] = items;
       return acc;
     }, {})
 );
 
-export const selectIsCategoriesLoading = (state) => state.categories.isLoading;
+export const selectIsCategoriesLoading = (state: RootState) =>
+  state.categories.isLoading;

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { SubmitEvent } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../redux/store/hooks';
 import { selectCurrentUser } from '../../redux/store/user/user.selector';
 import { selectCartTotal } from '../../redux/store/cart/cart.selector';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -11,14 +12,21 @@ import {
   PaymentButton,
 } from './payment-form.styles';
 
+// the following is an alternative to cardDetails = elements.getElement(CardElement) Down below
+
+const ifValidCardElement = (
+  card: StripeCardElement | null
+): card is StripeCardElement => card !== null;
 import './payment-form.styles';
+import { StripeCardElement } from '@stripe/stripe-js';
 const PaymentForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const currentUser = useSelector(selectCurrentUser);
-  const amount = useSelector(selectCartTotal);
+  //const amount = useSelector(selectCartTotal);
+  const amount = useAppSelector(selectCartTotal);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-  const paymentHandler = async (e) => {
+  const paymentHandler = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!stripe || !elements) {
       return;
@@ -43,7 +51,7 @@ const PaymentForm = () => {
     //console.log('client secret:', client_secret); temporary
     //console.log('response from netlify function:', response);
     const cardDetails = elements.getElement(CardElement); // get card details from CardElement component as there is only one CardElement in the form
-    if (cardDetails == null) {
+    if (cardDetails === null) {
       // if no card details, return
       alert('provide Card details to proceed');
       return;

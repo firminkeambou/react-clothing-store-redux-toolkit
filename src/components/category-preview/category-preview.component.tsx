@@ -5,8 +5,13 @@ import {
   Title,
   Preview,
 } from './category-preview.styles';
-
-const CategoryPreview = ({ title, products }) => {
+import { CategoryItem } from '../../utils/firebase/firebase.utils.types';
+type CategoryPreviewType = {
+  key: string;
+  title: string;
+  products: CategoryItem[];
+};
+const CategoryPreview = ({ title, products }: CategoryPreviewType) => {
   return (
     <CategoryPreviewContainer>
       <h2>

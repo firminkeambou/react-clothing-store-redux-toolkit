@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
-export const BackgroundImage = styled.div`
+interface BackgroundProps {
+  imageUrl: string;
+}
+export const BackgroundImage = styled.div<BackgroundProps>`
   width: 100%;
   height: 100%;
   background-size: cover;

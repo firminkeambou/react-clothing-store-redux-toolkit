@@ -1,8 +1,9 @@
-import { useDispatch } from 'react-redux';
+//import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../redux/store/hooks';
 //, useSelector from 'react-redux'
 //import { selectCartItems } from '../../redux/store/cart/cart.selector';
 import { addItemToCart } from '../../redux/store/cart/cart.reducer';
-
+import { CategoryItem } from '../../utils/firebase/firebase.utils.types';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component';
 
 import {
@@ -11,10 +12,12 @@ import {
   Name,
   Price,
 } from './product-card.styles';
-
-const ProductCard = ({ product }) => {
+type ProductCardProps = {
+  product: CategoryItem;
+};
+const ProductCard = ({ product }: ProductCardProps) => {
   const { name, price, imageUrl } = product;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   //const cartItems = useSelector(selectCartItems); // no more needed in redux toolkit way
 
   //const addProductToCart = () => dispatch(addItemToCart(cartItems, product)); // old way redux

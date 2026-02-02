@@ -1,7 +1,11 @@
 //import { createAction } from '../../../utils/reducer/reducer.utils';
 //import { CART_ACTION_TYPES } from './cart.types';
-
-export const addCartItem = (cartItems, productToAdd) => {
+import { CartItem } from '../../../utils/firebase/firebase.utils.types';
+import { CategoryItem } from '../../../utils/firebase/firebase.utils.types';
+export const addCartItem = (
+  cartItems: CartItem[] = [],
+  productToAdd: CategoryItem
+) => {
   const existingCartItem = cartItems.find(
     (cartItem) => cartItem.id === productToAdd.id
   );
@@ -17,14 +21,17 @@ export const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
-export const removeCartItem = (cartItems, cartItemToRemove) => {
+export const removeCartItem = (
+  cartItems: CartItem[] = [],
+  cartItemToRemove: CartItem
+) => {
   // find the cart item to remove
   const existingCartItem = cartItems.find(
     (cartItem) => cartItem.id === cartItemToRemove.id
   );
 
   // check if quantity is equal to 1, if it is remove that item from the cart
-  if (existingCartItem.quantity === 1) {
+  if (existingCartItem?.quantity === 1) {
     return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
   }
 
@@ -36,5 +43,7 @@ export const removeCartItem = (cartItems, cartItemToRemove) => {
   );
 };
 
-export const clearCartItem = (cartItems, cartItemToClear) =>
-  cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
+export const clearCartItem = (
+  cartItems: CartItem[] = [],
+  cartItemToClear: CartItem
+) => cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);

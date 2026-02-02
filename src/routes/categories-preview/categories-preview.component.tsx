@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
-import { useSelector } from 'react-redux';
+//import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../redux/store/hooks';
 import Spinner from '../../components/spinner/spinner.component';
 import {
   selectCategoriesMap,
@@ -9,9 +10,10 @@ import {
 import CategoryPreview from '../../components/category-preview/category-preview.component';
 
 const CategoriesPreview = () => {
-  const categoriesMap = useSelector(selectCategoriesMap);
-  const isCategoriesLoading = useSelector(selectIsCategoriesLoading);
-
+  //const categoriesMap = useSelector(selectCategoriesMap);
+  const categoriesMap = useAppSelector(selectCategoriesMap);
+  //const isCategoriesLoading = useSelector(selectIsCategoriesLoading);
+  const isCategoriesLoading = useAppSelector(selectIsCategoriesLoading);
   console.log('CategoriesPreview render', isCategoriesLoading);
 
   return (

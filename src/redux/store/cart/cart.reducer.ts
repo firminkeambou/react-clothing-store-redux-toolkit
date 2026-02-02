@@ -1,8 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'; // this method is use to create a reducer and action types, no more need of creating a personnal action
 import { addCartItem, removeCartItem, clearCartItem } from './cart.utils';
-
+import {
+  CartItem,
+  CategoryItem,
+} from '../../../utils/firebase/firebase.utils.types';
+import { ActionWithPayloadType } from '../../../utils/reducer/reducer.utils';
+export type CartState = {
+  readonly cartItems: CartItem[];
+  readonly isCartOpen: boolean;
+};
 // bear in mind that, with redux-persist, redux-toolkit uses initiatialState from the local storage if any, so whenever there is a change in InititiaState, clear the local storage to see the effect
-const CART_INITIAL_STATE = {
+const CART_INITIAL_STATE: CartState = {
   isCartOpen: false,
   cartItems: [],
 };
@@ -12,16 +20,16 @@ export const cartSlice = createSlice({
   initialState: CART_INITIAL_STATE,
   reducers: {
     // generating an action and a reducer in one go  // the call to setCartItems will be done with a ready payload
-    addItemToCart: (state, action) => {
+    addItemToCart: (state, action: ActionWithPayloadType<CategoryItem>) => {
       state.cartItems = addCartItem(state.cartItems, action.payload);
     }, // function that receives a state, action and return an object // actionCreator function
-    removeItemFromCart: (state, action) => {
+    removeItemFromCart: (state, action: ActionWithPayloadType<CartItem>) => {
       state.cartItems = removeCartItem(state.cartItems, action.payload);
     },
-    clearItemFromCart: (state, action) => {
+    clearItemFromCart: (state, action: ActionWithPayloadType<CartItem>) => {
       state.cartItems = clearCartItem(state.cartItems, action.payload);
     },
-    setIsCartOpen: (state, action) => {
+    setIsCartOpen: (state, action: ActionWithPayloadType<boolean>) => {
       state.isCartOpen = action.payload;
     },
   },

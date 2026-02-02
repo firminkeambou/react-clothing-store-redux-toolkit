@@ -1,4 +1,5 @@
-import { useDispatch } from 'react-redux';
+//import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../redux/store/hooks';
 //, useSelector from 'react-redux'
 import {
   clearItemFromCart,
@@ -6,7 +7,7 @@ import {
   removeItemFromCart,
 } from '../../redux/store/cart/cart.reducer';
 //import { selectCartItems } from '../../redux/store/cart/cart.selector';
-
+import { CartItem } from '../../utils/firebase/firebase.utils.types';
 import {
   CheckoutItemContainer,
   ImageContainer,
@@ -17,9 +18,15 @@ import {
   RemoveButton,
 } from './checkout-item.styles';
 
-const CheckoutItem = ({ cartItem }) => {
+type CheckOutItemProps = {
+  key: number;
+  cartItem: CartItem;
+};
+
+const CheckoutItem = ({ cartItem }: CheckOutItemProps) => {
   const { name, imageUrl, price, quantity } = cartItem;
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   // const cartItems = useSelector(selectCartItems);
 
   // dispatch(clearItemFromCart(cartItems, cartItem));// old way redux
